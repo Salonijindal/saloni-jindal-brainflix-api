@@ -1,8 +1,17 @@
 const express = require("express");
 const app = express();
+const videoRoutes = require("./routes/videos");
+const cors = require("cors");
 
-app.get("/", function (req, res) {
-  res.send("Hello world");
+//Enable access from client server to API
+app.use(cors());
+app.use((req, res, next) => {
+  console.log("Incoming request: ", req.path);
+
+  // You have to call next if you want to proceed to next middleware
+  next();
 });
 
-app.listen(8000, () => console.log(`Listening on 8080`));
+app.use("/videos", videoRoutes);
+
+app.listen(8000, () => console.log(`Listening on 8000`));
