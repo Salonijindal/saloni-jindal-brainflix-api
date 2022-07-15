@@ -2,6 +2,7 @@ const express = require("express");
 const app = express();
 const videoRoutes = require("./routes/videos");
 const cors = require("cors");
+app.use(express.json());
 
 //Enable access from client server to API
 app.use(cors());

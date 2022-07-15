@@ -29,5 +29,21 @@ router.get("/:videoId", (req, res) => {
 });
 
 //POST request
-
+router.post("/", (req, res) => {
+  const videoUploadData = req.data;
+  console.log("Requested Body: ", videoUploadData);
+  if (!req.body.title || !req.body.channel) {
+    return res.status(400).send("Title and channel are required fields");
+  }
+  const videosData = readDataFile("./data/videos.json");
+  const newVideo = {
+    id: uuid(),
+    title: req.body.title,
+    channel: req.body.channel,
+    //Put Default image, likes etc
+  };
+  videosData.push(newVideo); //Do we need write in both data
+  fs.writeFileSync("./data/videos.json", JSON.stringify(videosData));
+  res.status(201).json(newVideo);
+});
 module.exports = router;
