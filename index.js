@@ -3,7 +3,12 @@ const app = express();
 const videoRoutes = require("./routes/videos");
 const cors = require("cors");
 app.use(express.json());
+app.use(express.static("public"));
 
+// Enable .env variables
+require("dotenv").config();
+
+const PORT = process.env.PORT || 5050;
 //Enable access from client server to API
 app.use(cors());
 app.use((req, res, next) => {
@@ -15,4 +20,4 @@ app.use((req, res, next) => {
 
 app.use("/videos", videoRoutes);
 
-app.listen(8000, () => console.log(`Listening on 8000`));
+app.listen(PORT, () => console.log(`Listening on ${PORT}`));

@@ -11,7 +11,8 @@ const readDataFile = (dataFilePath) => {
 
 //Get Request
 router.get("/", (req, res) => {
-  const videosData = readDataFile("./data/videos.json");
+  const videosData = readDataFile("./data/video-detail.json");
+  console.log(Math.floor(Math.random() * 9));
   res.status(200).json(videosData);
 });
 
@@ -36,14 +37,16 @@ router.post("/", (req, res) => {
     return res.status(400).send("Title and channel are required fields");
   }
   const videosData = readDataFile("./data/videos.json");
+
   const newVideo = {
     id: uuid(),
     title: req.body.title,
     channel: req.body.channel,
+    Image: `/images/image${Math.floor(Math.random() * 9)}.jpeg`,
     //Put Default image, likes etc
   };
   videosData.push(newVideo); //Do we need write in both data
-  fs.writeFileSync("./data/videos.json", JSON.stringify(videosData));
+  fs.writeFileSync("./data/video-detial.json", JSON.stringify(videosData));
   res.status(201).json(newVideo);
 });
 module.exports = router;
