@@ -20,7 +20,6 @@ router.get("/", (req, res) => {
       image: video.image,
     };
   });
-  console.log(videosData);
   res.status(200).json(videosData);
 });
 
